@@ -1,0 +1,17 @@
+version: "3.4"
+services:
+  app:
+    image: mp3-item-tracker:latest
+    restart: unless-stopped
+    networks:
+      - traefik_public
+    labels:
+      - "traefik.http.routers.prime3tracker.rule=Host(`prime3tracker.davlin.io`)"
+      - "traefik.docker.network=traefik_public"
+      - "traefik.http.services.prime3tracker.loadbalancer.server.port=3000"
+      - "traefik.http.routers.prime3tracker.entrypoints=https"
+      - "traefik.http.routers.prime3tracker.tls=true"
+
+networks:
+  traefik_public:
+    external: true
