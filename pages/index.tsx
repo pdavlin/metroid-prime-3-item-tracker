@@ -8,7 +8,7 @@ import { use, useEffect, useState } from "react";
 const inter = Inter({ subsets: ["latin"] });
 
 const order = [
-  "morph_ball",
+  "missile_launcher",
   "grapple_lasso",
   "ped_suit",
   "grapple_swing",

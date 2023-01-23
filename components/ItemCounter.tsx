@@ -40,6 +40,20 @@ const ItemCounter = ({ itemName, maxNum }: ItemCounterProps) => {
     });
   }, [collected]);
 
+  const calculateItemTotal = (itemName: string) => {
+    if (itemName === "missile_launcher") {
+      return (
+        state["missile_launcher"] * 5 +
+        (state.collected.includes("missile_launcher") ? 5 : 0)
+      );
+    } else if (itemName === "ship_missile") {
+      return (
+        state["ship_missile"] * 1 +
+        (state.collected.includes("ship_missile") ? 3 : 0)
+      );
+    }
+  };
+
   return (
     <div className={styles.countercontainer}>
       <img
@@ -49,9 +63,15 @@ const ItemCounter = ({ itemName, maxNum }: ItemCounterProps) => {
           collected < maxNum && setCollected(collected + 1);
         }}
       />
-      <span className={`${inter.className} ${styles.counterlabel}`}>
-        {itemNameMap.get(itemName)}: {collected}/{maxNum}
-      </span>
+      <div className={`${inter.className} ${styles.counterlabel}`}>
+        <span>
+          {itemNameMap.get(itemName)}: {collected}/{maxNum}{" "}
+        </span>
+        <span>
+          {itemName.includes("missile") &&
+            `(total: ${calculateItemTotal(itemName)})`}
+        </span>
+      </div>
       {itemName === "energy_cell" && (
         <button
           className={`${inter.className} ${styles.subtractbutton}`}
